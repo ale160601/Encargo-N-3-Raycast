@@ -29,7 +29,6 @@ public class CarritoController : MonoBehaviour
             }
         }
 
-        //controlar el carrito si esta siendo llevado
         if (isCarryingCart)
         {
             ControlarCarrito();
