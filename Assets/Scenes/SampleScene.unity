@@ -11871,6 +11871,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -1.24
       objectReference: {fileID: 0}
+    - target: {fileID: 23775626944840986, guid: f48ec274a5187034e93f7631134c9dee, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 77aa8433d86618a40b14a055302575c3, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1255741823984186, guid: f48ec274a5187034e93f7631134c9dee, type: 3}
@@ -16339,6 +16343,9 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8
+  playerCamera: {fileID: 0}
+  mouseSensitivity: 2
+  maxLookAngle: 80
 --- !u!114 &2077357341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16353,6 +16360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rayDistance: 5
   manos: {fileID: 191575742}
+  productoInfoUI: {fileID: 0}
 --- !u!65 &2077357342
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16483,6 +16491,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items: []
+  dineroInicial: 100
+  dineroUI: {fileID: 0}
 --- !u!1 &2099186055
 GameObject:
   m_ObjectHideFlags: 0

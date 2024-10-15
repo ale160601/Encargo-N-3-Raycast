@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Inventory : MonoBehaviour
 {
     public List<ProductoData> items = new List<ProductoData>();
     public float dineroInicial = 100f;
-    public Text dineroUI;
+    public TextMeshPro dineroUI;
 
     void Start()
     {

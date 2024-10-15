@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Raycast : MonoBehaviour
 {
     public float rayDistance = 5f;
-    public Transform manos;  // Posición donde se sostendrá el objeto
-    public Text productoInfoUI;
+    public Transform manos;
+    public TextMeshProUGUI productoInfoUI;
     private GameObject grabbedObject;
 
     void Update()
@@ -15,7 +16,7 @@ public class Raycast : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        // Mostrar información del producto al apuntarlo
+        //mostrar data del producto al apuntarlo
         if (Physics.Raycast(ray, out hit, rayDistance))
         {
             if (hit.collider.CompareTag("Item"))
@@ -32,7 +33,6 @@ public class Raycast : MonoBehaviour
             productoInfoUI.text = "";
         }
 
-        // Agarrar/Soltar objetos con clic izquierdo
         if (Input.GetMouseButtonDown(0))
         {
             if (grabbedObject == null)

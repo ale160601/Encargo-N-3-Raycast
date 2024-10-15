@@ -7,5 +7,5 @@ public class ProductoData : ScriptableObject
 {
     public string nombre;
     public float precio;
-    public Sprite icono; // Opcional: para mostrar el ítem en la UI
+    public Sprite icono;
 }
