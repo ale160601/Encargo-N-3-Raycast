@@ -1,26 +1,65 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-    public List<GameObject> items = new List<GameObject>();
+    public List<ProductoData> items = new List<ProductoData>();
+    public float dineroInicial = 100f;
+    public Text dineroUI;
 
-    public void AddToInventory(GameObject item)
+    void Start()
     {
-        if (!items.Contains(item))
+        ActualizarDineroUI();
+    }
+
+    public void AddToInventory(ProductoData producto)
+    {
+        if (!items.Contains(producto))
         {
-            items.Add(item);
-            Debug.Log(item.name + " añadido al inventario.");
+            items.Add(producto);
+            Debug.Log($"{producto.nombre} añadido al inventario.");
         }
     }
 
-    public void RemoveFromInventory(GameObject item)
+    public void RemoveFromInventory(ProductoData producto)
     {
-        if (items.Contains(item))
+        if (items.Contains(producto))
         {
-            items.Remove(item);
-            Debug.Log(item.name + " eliminado del inventario.");
+            items.Remove(producto);
+            Debug.Log($"{producto.nombre} eliminado del inventario.");
         }
+    }
+
+    public float CalcularTotal()
+    {
+        float total = 0f;
+        foreach (ProductoData producto in items)
+        {
+            total += producto.precio;
+        }
+        return total;
+    }
+
+    public bool Comprar()
+    {
+        float total = CalcularTotal();
+        if (dineroInicial >= total)
+        {
+            dineroInicial -= total;
+            ActualizarDineroUI();
+            return true;
+        }
+        else
+        {
+            Debug.Log("No tienes suficiente dinero.");
+            return false;
+        }
+    }
+
+    private void ActualizarDineroUI()
+    {
+        dineroUI.text = $"Dinero: ${dineroInicial:F2}";
     }
 }

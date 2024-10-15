@@ -1,36 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Raycast : MonoBehaviour
 {
     public float rayDistance = 5f;
-    public Transform manos;
+    public Transform manos;  // Posición donde se sostendrá el objeto
+    public Text productoInfoUI;
     private GameObject grabbedObject;
 
     void Update()
     {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        // Mostrar información del producto al apuntarlo
+        if (Physics.Raycast(ray, out hit, rayDistance))
+        {
+            if (hit.collider.CompareTag("Item"))
+            {
+                Producto producto = hit.collider.GetComponent<Producto>();
+                if (producto != null)
+                {
+                    productoInfoUI.text = producto.GetInfo();
+                }
+            }
+        }
+        else
+        {
+            productoInfoUI.text = "";
+        }
+
+        // Agarrar/Soltar objetos con clic izquierdo
         if (Input.GetMouseButtonDown(0))
         {
             if (grabbedObject == null)
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-
-                //Raycast para detectar el objeto
                 if (Physics.Raycast(ray, out hit, rayDistance))
                 {
-                    if (hit.collider.CompareTag("Item")) //el objeto debe tener la etiqueta "Item"
+                    if (hit.collider.CompareTag("Item"))
                     {
                         grabbedObject = hit.collider.gameObject;
-
-                        //verifica si el objeto esta en el inventario
-                        if (FindObjectOfType<Inventory>().items.Contains(grabbedObject))
-                        {
-                            FindObjectOfType<Inventory>().RemoveFromInventory(grabbedObject);
-                        }
-
-                        grabbedObject.GetComponent<Rigidbody>().isKinematic = true; //evita que caiga
+                        grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
                         grabbedObject.transform.position = manos.position;
                         grabbedObject.transform.parent = manos;
                     }
@@ -40,16 +52,6 @@ public class Raycast : MonoBehaviour
             {
                 DropObject();
             }
-        }
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (grabbedObject != null && other.CompareTag("InventoryArea"))
-        {
-            //añade el objeto al inventario cuando entra en el área del plano
-            FindObjectOfType<Inventory>().AddToInventory(grabbedObject);
-            DropObject();
         }
     }
 
