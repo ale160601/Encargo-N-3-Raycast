@@ -31,7 +31,7 @@ public class UIController : MonoBehaviour
         foreach (var producto in productosComprados)
         {
             total += producto.precio;
-            listaProductos += $"{producto.nombre} - ${producto.precio}\n";
+            listaProductos += $"{producto.nombre} - ${producto.precio:F2}\n";
         }
 
         if (total > dinero)
@@ -44,7 +44,6 @@ public class UIController : MonoBehaviour
             ActualizarDinero();
 
             int vuelto = dinero;
-
             MostrarBoleta(listaProductos, Mathf.RoundToInt(total), vuelto);
         }
     }
@@ -55,7 +54,6 @@ public class UIController : MonoBehaviour
             $"Productos Comprados:\n{productos}\n" +
             $"Total: ${total}\n" +
             $"Dinero Restante: ${vuelto}";
-
         boletaPanel.SetActive(true);
     }
 
