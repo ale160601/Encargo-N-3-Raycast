@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class CarritoController : MonoBehaviour
 {
+    public Transform carritoContenido;  // Empty Object dentro del carrito
+    public Inventory inventario;        // Referencia al inventario
     public Transform player;
-    public float followDistance = 2f;    //distancia máxima para agarrar el carrito
-    public float moveSpeed = 5f;         //velocidad de movimiento del carrito
+    public float followDistance = 2f;
+    public float moveSpeed = 5f;
     private Rigidbody carritoRb;
-    private bool isCarryingCart = false; //para saber si el carrito esta siendo controlado
+    private bool isCarryingCart = false;
 
     void Start()
     {
@@ -37,26 +39,22 @@ public class CarritoController : MonoBehaviour
 
     private bool PuedeAgarrarCarrito()
     {
-        //verifica si el carrito esta a una corta distancia del jugador
         float distancia = Vector3.Distance(transform.position, player.position);
-        Debug.Log("Distancia al carrito: " + distancia);
         return distancia <= followDistance;
     }
 
     private void AgarrarCarrito()
     {
         isCarryingCart = true;
-        carritoRb.isKinematic = true;  //desactiva la física para controlar el carrito
-        carritoRb.transform.SetParent(player); //hace al carrito hijo del jugador
-        Debug.Log("Carrito agarrado.");
+        carritoRb.isKinematic = true;
+        carritoRb.transform.SetParent(player);
     }
 
     private void SoltarCarrito()
     {
         isCarryingCart = false;
-        carritoRb.isKinematic = false;  //reactiva la fisica del carrito
+        carritoRb.isKinematic = false;
         carritoRb.transform.SetParent(null);
-        Debug.Log("Carrito soltado.");
     }
 
     private void ControlarCarrito()
@@ -67,6 +65,20 @@ public class CarritoController : MonoBehaviour
         if (direccion.magnitude > 0)
         {
             carritoRb.AddForce(movimiento.normalized * moveSpeed, ForceMode.Acceleration);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Item"))
+        {
+            Producto producto = other.GetComponent<Producto>();
+            if (producto != null)
+            {
+                inventario.AddToInventory(producto.datos);  // Agrega al inventario
+                other.transform.SetParent(carritoContenido);  // Añade al carrito
+                Debug.Log($"{producto.datos.nombre} añadido al carrito.");
+            }
         }
     }
 }
