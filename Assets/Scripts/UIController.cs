@@ -20,7 +20,7 @@ public class UIController : MonoBehaviour
 
     public void ActualizarDinero()
     {
-        dineroText.text = $"Dinero: ${dinero}";
+        dineroText.text = $"${dinero}";
     }
 
     public void ConfirmarCompra(List<ProductoData> productosComprados)

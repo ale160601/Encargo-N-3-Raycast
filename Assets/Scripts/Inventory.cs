@@ -61,6 +61,6 @@ public class Inventory : MonoBehaviour
 
     private void ActualizarDineroUI()
     {
-        dineroUI.text = $"Dinero: ${dineroInicial:F2}";
+        dineroUI.text = $"${dineroInicial:F2}";
     }
 }
