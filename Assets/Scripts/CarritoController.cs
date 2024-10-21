@@ -70,14 +70,18 @@ public class CarritoController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Item"))
+        if (other.CompareTag("Item"))  // Verifica que sea un item
         {
             Producto producto = other.GetComponent<Producto>();
             if (producto != null)
             {
                 inventario.AddToInventory(producto.datos);  // Agrega al inventario
-                other.transform.SetParent(carritoContenido);  // Añade al carrito
+                other.transform.SetParent(carritoContenido);  // Añade al carrito visualmente
                 Debug.Log($"{producto.datos.nombre} añadido al carrito.");
+            }
+            else
+            {
+                Debug.LogWarning("Producto sin componente 'Producto'.");
             }
         }
     }
