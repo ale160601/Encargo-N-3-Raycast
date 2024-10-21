@@ -8,7 +8,7 @@ public class Inventory : MonoBehaviour
 {
     public List<ProductoData> items = new List<ProductoData>();
     public float dineroInicial = 100f;
-    public TextMeshPro dineroUI;
+    public TextMeshProUGUI dineroUI;
 
     void Start()
     {
@@ -17,20 +17,29 @@ public class Inventory : MonoBehaviour
 
     public void AddToInventory(ProductoData producto)
     {
-        if (!items.Contains(producto))
+        if (!ContieneProducto(producto))
         {
             items.Add(producto);
             Debug.Log($"{producto.nombre} añadido al inventario.");
+        }
+        else
+        {
+            Debug.Log($"{producto.nombre} ya está en el inventario.");
         }
     }
 
     public void RemoveFromInventory(ProductoData producto)
     {
-        if (items.Contains(producto))
+        if (ContieneProducto(producto))
         {
             items.Remove(producto);
             Debug.Log($"{producto.nombre} eliminado del inventario.");
         }
+    }
+
+    private bool ContieneProducto(ProductoData producto)
+    {
+        return items.Contains(producto);
     }
 
     public float CalcularTotal()
@@ -50,17 +59,24 @@ public class Inventory : MonoBehaviour
         {
             dineroInicial -= total;
             ActualizarDineroUI();
+            Debug.Log("Compra realizada exitosamente.");
             return true;
         }
         else
         {
-            Debug.Log("No tienes suficiente dinero.");
+            Debug.Log("No tienes suficiente dinero para la compra.");
             return false;
         }
     }
-
     private void ActualizarDineroUI()
     {
-        dineroUI.text = $"${dineroInicial:F2}";
+        if (dineroUI != null)
+        {
+            dineroUI.text = $"${dineroInicial:F2}";
+        }
+        else
+        {
+            Debug.LogWarning("Referencia a dineroUI no asignada.");
+        }
     }
 }

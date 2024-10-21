@@ -70,18 +70,20 @@ public class CarritoController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Item"))  // Verifica que sea un item
+        if (other.CompareTag("Item"))
         {
             Producto producto = other.GetComponent<Producto>();
-            if (producto != null)
+            Rigidbody rb = other.GetComponent<Rigidbody>();
+
+            if (producto != null && rb != null)
             {
-                inventario.AddToInventory(producto.datos);  // Agrega al inventario
-                other.transform.SetParent(carritoContenido);  // Añade al carrito visualmente
+                inventario.AddToInventory(producto.datos);
+                other.transform.SetParent(carritoContenido);
                 Debug.Log($"{producto.datos.nombre} añadido al carrito.");
             }
             else
             {
-                Debug.LogWarning("Producto sin componente 'Producto'.");
+                Debug.LogWarning($"El objeto {other.name} no tiene un Rigidbody o no es un producto válido.");
             }
         }
     }
