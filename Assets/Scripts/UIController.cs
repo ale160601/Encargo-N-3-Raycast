@@ -25,6 +25,8 @@ public class UIController : MonoBehaviour
 
     public void ConfirmarCompra(List<ProductoData> productosComprados)
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         if (productosComprados.Count == 0)
         {
             Debug.Log("No hay productos en el carrito.");
@@ -59,6 +61,7 @@ public class UIController : MonoBehaviour
             $"Total: ${total}\n" +
             $"Dinero Restante: ${vuelto}";
         boletaPanel.SetActive(true);
+
     }
 
     public void CerrarBoleta()

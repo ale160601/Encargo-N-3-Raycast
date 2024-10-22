@@ -74,10 +74,6 @@ public class Inventory : MonoBehaviour
         {
             dineroUI.text = $"${dineroInicial:F2}";
         }
-        else
-        {
-            Debug.LogWarning("Referencia a dineroUI no asignada.");
-        }
     }
     public void LimpiarInventario()
     {
