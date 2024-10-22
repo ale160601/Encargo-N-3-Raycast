@@ -23,7 +23,6 @@ public class UIController : MonoBehaviour
         dineroText.text = $"${dinero}";
     }
 
-    // Confirmar la compra y mostrar los productos
     public void ConfirmarCompra(List<ProductoData> productosComprados)
     {
         if (productosComprados.Count == 0)

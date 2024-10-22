@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Producto : MonoBehaviour
 {
-    public ProductoData datos; // Referencia al ScriptableObject
+    public ProductoData datos;
 
     public string GetInfo()
     {
