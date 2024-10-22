@@ -79,4 +79,9 @@ public class Inventory : MonoBehaviour
             Debug.LogWarning("Referencia a dineroUI no asignada.");
         }
     }
+    public void LimpiarInventario()
+    {
+        items.Clear();
+        Debug.Log("Inventario limpiado después de la compra.");
+    }
 }

@@ -23,8 +23,15 @@ public class UIController : MonoBehaviour
         dineroText.text = $"${dinero}";
     }
 
+    // Confirmar la compra y mostrar los productos
     public void ConfirmarCompra(List<ProductoData> productosComprados)
     {
+        if (productosComprados.Count == 0)
+        {
+            Debug.Log("No hay productos en el carrito.");
+            return;
+        }
+
         float total = 0f;
         string listaProductos = "";
 
@@ -36,15 +43,13 @@ public class UIController : MonoBehaviour
 
         if (total > dinero)
         {
-            Debug.Log("Dinero insuficiente");
+            Debug.Log("Dinero insuficiente para completar la compra.");
         }
         else
         {
             dinero -= Mathf.RoundToInt(total);
             ActualizarDinero();
-
-            int vuelto = dinero;
-            MostrarBoleta(listaProductos, Mathf.RoundToInt(total), vuelto);
+            MostrarBoleta(listaProductos, Mathf.RoundToInt(total), dinero);
         }
     }
 

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CarritoController : MonoBehaviour
 {
-    public Transform carritoContenido;  // Empty Object dentro del carrito
-    public Inventory inventario;        // Referencia al inventario
+    public Transform carritoContenido;
+    public Inventory inventario;
     public Transform player;
     public float followDistance = 2f;
     public float moveSpeed = 5f;

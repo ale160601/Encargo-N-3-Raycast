@@ -16,7 +16,7 @@ public class Raycast : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        // Muestra información del producto al apuntarlo
+        //muestra informacion del producto al apuntarlo
         if (Physics.Raycast(ray, out hit, rayDistance))
         {
             if (hit.collider.CompareTag("Item"))
@@ -33,7 +33,7 @@ public class Raycast : MonoBehaviour
             productoInfoUI.text = "";
         }
 
-        // Agarra o suelta un objeto con clic izquierdo
+        //agarra o suelta un objeto con clic izquierdo
         if (Input.GetMouseButtonDown(0))
         {
             if (grabbedObject == null)

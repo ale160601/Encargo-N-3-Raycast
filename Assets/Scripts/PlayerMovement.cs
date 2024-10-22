@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundMask;
     public Transform playerCamera;   
     public float mouseSensitivity = 2f; 
-    public float maxLookAngle = 80f; //Maximo de la camara para mirar en vertical
+    public float maxLookAngle = 80f;
     private Rigidbody rb;
     private float verticalRotation = 0f;
 
@@ -19,7 +19,6 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
-        //esconde y bloquea el cursor en el centro de la pantalla
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = true;
     }
@@ -47,11 +46,10 @@ public class PlayerMovement : MonoBehaviour
 
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
         verticalRotation -= mouseY;
-        verticalRotation = Mathf.Clamp(verticalRotation, -maxLookAngle, maxLookAngle);  //limitar angulo de la camara
+        verticalRotation = Mathf.Clamp(verticalRotation, -maxLookAngle, maxLookAngle);
 
         playerCamera.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
     }
-
     private void Saltar()
     {
         if (Input.GetButtonDown("Jump") && isGrounded)
@@ -62,7 +60,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //detecta si el personaje esta tocando el suelo
         if ((groundMask.value & (1 << collision.gameObject.layer)) != 0)
         {
             isGrounded = true;
